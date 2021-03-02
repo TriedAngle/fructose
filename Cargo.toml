@@ -3,6 +3,16 @@ name = "fructose"
 version = "0.1.0"
 authors = ["Sebastian <Sebastian@Strobl.net>"]
 edition = "2018"
+publish = true
+license-file = "LICENSE"
+categories = ["mathematics", "science"]
+keywords = ["math", "mathematics", "science", "physics"]
+repository = "https://github.com/TriedWorks/fructose"
+description = "Mathematical Traits for the Glucose Library and the Rust programming language."
+
+[lib]
+name = "fructose"
+path = "src/lib.rs"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
