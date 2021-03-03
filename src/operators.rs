@@ -1,11 +1,11 @@
-pub trait Operator: Copy { }
+pub trait Operator: Copy {}
 
 #[derive(Copy, Clone)]
-pub struct Additive { }
+pub struct Additive {}
 
 #[derive(Copy, Clone)]
-pub struct Multiplicative { }
+pub struct Multiplicative {}
 
-impl Operator for Additive { }
+impl Operator for Additive {}
 
-impl Operator for Multiplicative { }
+impl Operator for Multiplicative {}

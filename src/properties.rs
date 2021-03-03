@@ -1,12 +1,12 @@
 use crate::operators::Operator;
 
-pub trait Associative: PartialEq { }
+pub trait Associative: PartialEq {}
 
-pub trait Commutative { }
+pub trait Commutative {}
 
-pub trait Distributive { }
+pub trait Distributive {}
 
-pub trait Total { }
+pub trait Total {}
 
 pub trait Identity<O: Operator> {
     fn identity() -> Self;
