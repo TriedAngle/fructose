@@ -1,3 +1,4 @@
+mod group;
 mod operators;
 mod properties;
-mod groups;
+mod ring;
