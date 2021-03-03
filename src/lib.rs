@@ -1,4 +1,4 @@
-#[cfg(test)]
+mod operators;
 mod tests {
     #[test]
     fn it_works() {
