@@ -8,11 +8,11 @@ pub trait Distributive { }
 
 pub trait Total { }
 
-pub trait Identity<Op: Operator> {
+pub trait Identity<O: Operator> {
     fn identity() -> Self;
 }
 
-pub trait Invertible<Op: Operator>: Sized {
+pub trait Invertible<O: Operator>: Sized {
     fn inverse(&self) -> Self;
     fn invert(&mut self) {
         *self = self.inverse();
