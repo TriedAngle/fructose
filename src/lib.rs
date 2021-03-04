@@ -1,6 +1,6 @@
 mod group;
+mod module;
 mod operators;
 mod properties;
 mod ring;
-mod module;
 mod vector;
