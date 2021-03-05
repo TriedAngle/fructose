@@ -26,9 +26,7 @@
 use crate::operators::Operator;
 use crate::properties::{Associative, Commutative, Identity, Invertible, Total};
 
-pub trait Magma<O: Operator>: Total<O> {
-    fn op(&self, rhs: Self) -> Self;
-}
+pub trait Magma<O: Operator>: Total<O> {}
 
 pub trait UnitalMagma<O: Operator>: Magma<O> + Identity<O> {}
 
@@ -53,3 +51,18 @@ pub trait CommutativeMonoid<O: Operator>: Monoid<O> + Commutative<O> {}
 pub trait Group<O: Operator>: Magma<O> + Groupoid<O> {}
 
 pub trait AbelianGroup<O: Operator>: Group<O> + Commutative<O> {}
+
+impl<T, O: Operator> Magma<O> for T where T: Total<O> {}
+impl<T, O: Operator> UnitalMagma<O> for T where T: Magma<O> + Identity<O> {}
+impl<T, O: Operator> Semigroupoid<O> for T where T: Associative<O> {}
+impl<T, O: Operator> SmallCategory<O> for T where T: Semigroupoid<O> + Identity<O> {}
+impl<T, O: Operator> Groupoid<O> for T where T: SmallCategory<O> + Invertible<O> {}
+
+impl<T, O: Operator> Quasigroup<O> for T where T: Magma<O> + Invertible<O> {}
+impl<T, O: Operator> Loop<O> for T where T: UnitalMagma<O> + Quasigroup<O> {}
+impl<T, O: Operator> Semigroup<O> for T where T: Magma<O> + Semigroupoid<O> {}
+impl<T, O: Operator> InverseSemigroup<O> for T where T: Semigroup<O> + Invertible<O> {}
+impl<T, O: Operator> Monoid<O> for T where T: Magma<O> + SmallCategory<O> {}
+impl<T, O: Operator> CommutativeMonoid<O> for T where T: Monoid<O> + Commutative<O> {}
+impl<T, O: Operator> Group<O> for T where T: Magma<O> + Groupoid<O> {}
+impl<T, O: Operator> AbelianGroup<O> for T where T: Group<O> + Commutative<O> {}
