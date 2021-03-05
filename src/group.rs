@@ -26,11 +26,13 @@
 use crate::operators::Operator;
 use crate::properties::{Associative, Commutative, Identity, Invertible, Total};
 
-pub trait Magma<O: Operator>: Total {}
+pub trait Magma<O: Operator>: Total<O> {
+    fn op(&self, rhs: Self) -> Self;
+}
 
 pub trait UnitalMagma<O: Operator>: Magma<O> + Identity<O> {}
 
-pub trait Semigroupoid<O: Operator>: Associative {}
+pub trait Semigroupoid<O: Operator>: Associative<O> {}
 
 pub trait SmallCategory<O: Operator>: Semigroupoid<O> + Identity<O> {}
 
@@ -46,8 +48,8 @@ pub trait InverseSemigroup<O: Operator>: Semigroup<O> + Invertible<O> {}
 
 pub trait Monoid<O: Operator>: Magma<O> + SmallCategory<O> {}
 
-pub trait CommutativeMonoid<O: Operator>: Monoid<O> + Commutative {}
+pub trait CommutativeMonoid<O: Operator>: Monoid<O> + Commutative<O> {}
 
 pub trait Group<O: Operator>: Magma<O> + Groupoid<O> {}
 
-pub trait AbelianGroup<O: Operator>: Group<O> + Commutative {}
+pub trait AbelianGroup<O: Operator>: Group<O> + Commutative<O> {}

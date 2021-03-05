@@ -1,5 +1,4 @@
 use std::ops::{Add, AddAssign, Div, DivAssign, Mul, MulAssign, Neg, Sub, SubAssign};
-use std::process::Output;
 
 pub trait Operator: Copy {}
 
@@ -18,3 +17,9 @@ pub trait ClosedSub<Rhs = Self>: Sub<Rhs, Output = Self> + SubAssign<Rhs> {}
 pub trait ClosedMul<Rhs = Self>: Mul<Rhs, Output = Self> + MulAssign<Rhs> {}
 pub trait ClosedDiv<Rhs = Self>: Div<Rhs, Output = Self> + DivAssign<Rhs> {}
 pub trait ClosedNeg: Neg<Output = Self> {}
+
+impl<T, Rhs> ClosedAdd<Rhs> for T where T: Add<Rhs, Output = T> + AddAssign<Rhs> {}
+impl<T, Rhs> ClosedSub<Rhs> for T where T: Sub<Rhs, Output = T> + SubAssign<Rhs> {}
+impl<T, Rhs> ClosedMul<Rhs> for T where T: Mul<Rhs, Output = T> + MulAssign<Rhs> {}
+impl<T, Rhs> ClosedDiv<Rhs> for T where T: Div<Rhs, Output = T> + DivAssign<Rhs> {}
+impl<T> ClosedNeg for T where T: Neg<Output = T> {}
