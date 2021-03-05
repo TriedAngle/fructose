@@ -1,4 +1,4 @@
-use crate::algebra::group::{AbelianGroup, CommutativeMonoid, Group, Monoid, Semigroup};
+use crate::algebra::group::{AbelianGroup, CommutativeMonoid, Monoid, Semigroup};
 use crate::algebra::operators::{Additive, Multiplicative, Operator};
 
 // (alias) All Fields are Division Rings
@@ -35,6 +35,17 @@ pub trait Semiring<A: Operator = Additive, M: Operator = Multiplicative>:
 // Addition: Ring - Inverse - Commutativity
 // Multiplication: Semiring - Identity
 pub trait NearRing<A: Operator = Additive, M: Operator = Multiplicative>:
-    Monoid<A> + Semigroup<Multiplicative>
+    Monoid<A> + Semigroup<M>
 {
 }
+
+impl<T, A: Operator, M: Operator> NearRing<A, M> for T where T: Monoid<A> + Semigroup<M> {}
+impl<T, A: Operator, M: Operator> Semiring<A, M> for T where T: CommutativeMonoid<A> + Monoid<M> {}
+impl<T, A: Operator, M: Operator> Ring<A, M> for T where T: AbelianGroup<A> + Monoid<M> {}
+impl<T, A: Operator, M: Operator> CommutativeRing<A, M> for T where
+    T: AbelianGroup<A> + CommutativeMonoid<M>
+{
+}
+impl<T, A: Operator, M: Operator> DivisionRing<A, M> for T where T: AbelianGroup<A> + AbelianGroup<M>
+{}
+impl<T, A: Operator, M: Operator> Field<A, M> for T where T: DivisionRing<A, M> {}

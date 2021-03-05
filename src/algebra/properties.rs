@@ -1,28 +1,33 @@
 use crate::algebra::operators::{Additive, Multiplicative, Operator};
-use std::ops::Neg;
+use std::ops::{Add, Mul, Neg};
 
-pub trait Set {}
+pub trait Set<O: Operator> {
+    fn operate(&self, rhs: Self) -> Self;
+}
 
-pub trait Associative<O: Operator>: Set {}
+pub trait Associative<O: Operator>: Set<O> {}
 
-pub trait Commutative<O: Operator>: Set {}
+pub trait Commutative<O: Operator>: Set<O> {}
 
 // TODO: use this
-pub trait Distributive<O: Operator>: Set {}
+pub trait Distributive<O: Operator>: Set<O> {}
 
-pub trait Total<O: Operator>: Set {}
+pub trait Total<O: Operator>: Set<O> {}
 
-pub trait Invertible<O: Operator>: Set + Neg<Output = Self> {
+pub trait Invertible<O: Operator>: Set<O> + Neg<Output = Self> {
     fn inverse(&self) -> Self;
     fn inverted(&mut self);
 }
 
-pub trait Identity<O: Operator>: Set {
+pub trait Identity<O: Operator>: Set<O> {
     fn identity() -> Self;
     fn is_identity(&self) -> bool;
 }
 
-impl<T> Set for T {}
+impl_set! {
+    Additive        | add => u8, u16, u32, u64, u128, usize, i8, i16, i32, i64, i128, isize, f32, f64;
+    Multiplicative  | mul => u8, u16, u32, u64, u128, usize, i8, i16, i32, i64, i128, isize, f32, f64;
+}
 
 impl_properties! {
     Total<Additive>             => u8, u16, u32, u64, u128, usize, i8, i16, i32, i64, i128, isize, f32, f64;

@@ -11,3 +11,6 @@ pub trait Module<A: Operator = Additive, RA: Operator = Additive, RM: Operator =
 pub trait CommutativeModule: Module<Ring = <Self as CommutativeModule>::Ring> {
     type Ring: CommutativeRing;
 }
+
+impl_module!(i8 i16 i32 i64 isize f32 f64);
+impl_commutative_module!(i8 i16 i32 i64 isize f32 f64);

@@ -1,8 +1,23 @@
-macro_rules! impl_identity {
-    ($($identity:expr => $operation:ident => $($t:ty),*);* $(;)?) => {
+macro_rules! impl_set {
+    ($($operator:ident | $operation:ident => $($set:ident),*);* $(;)?) => {
         $(
             $(
-                impl Identity<$operation> for $t {
+                impl Set<$operator> for $set {
+                    #[inline]
+                    fn operate(&self, rhs: Self) -> Self {
+                        self.$operation(rhs)
+                    }
+                }
+            )*
+        )*
+    }
+}
+
+macro_rules! impl_identity {
+    ($($identity:expr => $operator:ident => $($t:ty),*);* $(;)?) => {
+        $(
+            $(
+                impl Identity<$operator> for $t {
                     #[inline]
                     fn identity() -> $t {
                         $identity
@@ -59,6 +74,36 @@ macro_rules! impl_invertible_mul {
                 fn inverted(&mut self) {
                     *self = 1.0 / *self
                 }
+            }
+        )*
+    }
+}
+
+macro_rules! impl_module {
+    ($($set:ident)*) => {
+        $(
+            impl Module for $set {
+                type Ring = $set;
+            }
+        )*
+    }
+}
+
+macro_rules! impl_commutative_module {
+    ($($set:ident)*) => {
+        $(
+            impl CommutativeModule for $set {
+                type Ring = $set;
+            }
+        )*
+    }
+}
+
+macro_rules! impl_vector_space {
+    ($($set:ident)*) => {
+        $(
+            impl VectorSpace for $set {
+                type Field = $set;
             }
         )*
     }
