@@ -1,5 +1,24 @@
+macro_rules! forward {
+    ($(fn $method:ident(&self $(, $arg:ident: $ty:ty)*) -> $rty:ty;)*) => {
+        $(
+            #[inline]
+            fn $method(&self $(, $arg: $ty )*) -> $rty {
+                Self::$method(*self $(, $arg)*)
+            }
+        )*
+    };
+    ($(fn $method:ident(self $(, $arg:ident: $ty:ty)*) -> $rty:ty;)*) => {
+        $(
+            #[inline]
+            fn $method(self $(, $arg: $ty )*) -> $rty {
+                Self::$method(self $(, $arg)*)
+            }
+        )*
+    };
+}
+
 macro_rules! impl_set {
-    ($($operator:ident | $operation:ident => $($set:ident),*);* $(;)?) => {
+    ($($operator:ident | $operation:ident => $($set:ty),*);* $(;)?) => {
         $(
             $(
                 impl Set<$operator> for $set {
@@ -34,10 +53,10 @@ macro_rules! impl_identity {
 }
 
 macro_rules! impl_properties {
-    ($($marker:ident<$operator:ident> => $($set:ident),*);* $(;)?) => {
+    ($($marker:ty => $($set:ident),*);* $(;)?) => {
         $(
             $(
-                impl $marker<$operator> for $set {}
+                impl $marker for $set {}
             )*
         )*
     }
@@ -74,36 +93,6 @@ macro_rules! impl_invertible_mul {
                 fn inverted(&mut self) {
                     *self = 1.0 / *self
                 }
-            }
-        )*
-    }
-}
-
-macro_rules! impl_module {
-    ($($set:ident)*) => {
-        $(
-            impl Module for $set {
-                type Ring = $set;
-            }
-        )*
-    }
-}
-
-macro_rules! impl_commutative_module {
-    ($($set:ident)*) => {
-        $(
-            impl CommutativeModule for $set {
-                type Ring = $set;
-            }
-        )*
-    }
-}
-
-macro_rules! impl_vector_space {
-    ($($set:ident)*) => {
-        $(
-            impl VectorSpace for $set {
-                type Field = $set;
             }
         )*
     }

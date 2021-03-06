@@ -1,9 +1,6 @@
 use crate::algebra::group::{AbelianGroup, CommutativeMonoid, Monoid, Semigroup};
 use crate::algebra::operators::{Additive, Multiplicative, Operator};
 
-// (alias) All Fields are Division Rings
-pub trait Field<A: Operator = Additive, M: Operator = Multiplicative>: DivisionRing<A, M> {}
-
 // Addition: Ring
 // Multiplication: Ring + Commutativity + Invertibility
 pub trait DivisionRing<A: Operator = Additive, M: Operator = Multiplicative>:
@@ -48,4 +45,3 @@ impl<T, A: Operator, M: Operator> CommutativeRing<A, M> for T where
 }
 impl<T, A: Operator, M: Operator> DivisionRing<A, M> for T where T: AbelianGroup<A> + AbelianGroup<M>
 {}
-impl<T, A: Operator, M: Operator> Field<A, M> for T where T: DivisionRing<A, M> {}

@@ -42,6 +42,8 @@ pub trait Loop<O: Operator>: UnitalMagma<O> + Quasigroup<O> {}
 
 pub trait Semigroup<O: Operator>: Magma<O> + Semigroupoid<O> {}
 
+pub trait CommutativeSemigroup<O: Operator>: Semigroup<O> + Commutative<O> {}
+
 pub trait InverseSemigroup<O: Operator>: Semigroup<O> + Invertible<O> {}
 
 pub trait Monoid<O: Operator>: Magma<O> + SmallCategory<O> {}
@@ -61,6 +63,7 @@ impl<T, O: Operator> Groupoid<O> for T where T: SmallCategory<O> + Invertible<O>
 impl<T, O: Operator> Quasigroup<O> for T where T: Magma<O> + Invertible<O> {}
 impl<T, O: Operator> Loop<O> for T where T: UnitalMagma<O> + Quasigroup<O> {}
 impl<T, O: Operator> Semigroup<O> for T where T: Magma<O> + Semigroupoid<O> {}
+impl<T, O: Operator> CommutativeSemigroup<O> for T where T: Semigroup<O> + Commutative<O> {}
 impl<T, O: Operator> InverseSemigroup<O> for T where T: Semigroup<O> + Invertible<O> {}
 impl<T, O: Operator> Monoid<O> for T where T: Magma<O> + SmallCategory<O> {}
 impl<T, O: Operator> CommutativeMonoid<O> for T where T: Monoid<O> + Commutative<O> {}

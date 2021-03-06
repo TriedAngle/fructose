@@ -10,7 +10,10 @@ pub trait Associative<O: Operator>: Set<O> {}
 pub trait Commutative<O: Operator>: Set<O> {}
 
 // TODO: use this
-pub trait Distributive<O: Operator>: Set<O> {}
+pub trait Distributive<O: Operator = Multiplicative, Over: Operator = Additive>:
+    Set<O> + Set<Over>
+{
+}
 
 pub trait Total<O: Operator>: Set<O> {}
 
@@ -36,13 +39,15 @@ impl_properties! {
     Associative<Multiplicative> => u8, u16, u32, u64, u128, usize, i8, i16, i32, i64, i128, isize, f32, f64;
     Commutative<Additive>       => u8, u16, u32, u64, u128, usize, i8, i16, i32, i64, i128, isize, f32, f64;
     Commutative<Multiplicative> => u8, u16, u32, u64, u128, usize, i8, i16, i32, i64, i128, isize, f32, f64;
+
+    Distributive<Multiplicative, Additive> => u8, u16, u32, u64, u128, usize, i8, i16, i32, i64, i128, isize, f32, f64;
 }
 
 impl_identity! {
     0   => Additive         => u8, u16, u32, u64, u128, usize, i8, i16, i32, i64, i128, isize;
     1   => Multiplicative   => u8, u16, u32, u64, u128, usize, i8, i16, i32, i64, i128, isize;
-    1.0 => Additive         => f32, f64;
-    0.0 => Multiplicative   => f32, f64;
+    0.0 => Additive         => f32, f64;
+    1.0 => Multiplicative   => f32, f64;
 }
 
 impl_invertible_add!(i8 i16 i32 i64 i128 isize f32 f64);

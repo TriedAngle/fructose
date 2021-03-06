@@ -1,3 +1,4 @@
 #[macro_use]
-mod macros;
-mod algebra;
+pub mod macros;
+pub mod algebra;
+pub mod specific;
