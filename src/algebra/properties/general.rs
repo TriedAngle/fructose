@@ -10,6 +10,7 @@ pub trait Associative<O: Operator>: Set<O> {}
 pub trait Commutative<O: Operator>: Set<O> {}
 
 // TODO: use this
+// TODO: impl this for exponentiation and tetration
 pub trait Distributive<O: Operator = Multiplicative, Over: Operator = Additive>:
     Set<O> + Set<Over>
 {
@@ -27,6 +28,12 @@ pub trait Identity<O: Operator>: Set<O> {
     fn is_identity(&self) -> bool;
 }
 
+// marker trait for rings without a zero
+pub trait NonZero {}
+
+pub trait PartiallyOrdered<O: Operator>: PartialOrd {}
+pub trait Ordered<O: Operator>: Ord {}
+
 impl_set! {
     Additive        | add => u8, u16, u32, u64, u128, usize, i8, i16, i32, i64, i128, isize, f32, f64;
     Multiplicative  | mul => u8, u16, u32, u64, u128, usize, i8, i16, i32, i64, i128, isize, f32, f64;
@@ -40,7 +47,14 @@ impl_properties! {
     Commutative<Additive>       => u8, u16, u32, u64, u128, usize, i8, i16, i32, i64, i128, isize, f32, f64;
     Commutative<Multiplicative> => u8, u16, u32, u64, u128, usize, i8, i16, i32, i64, i128, isize, f32, f64;
 
-    Distributive<Multiplicative, Additive> => u8, u16, u32, u64, u128, usize, i8, i16, i32, i64, i128, isize, f32, f64;
+    PartiallyOrdered<Additive>          => u8, u16, u32, u64, u128, usize, i8, i16, i32, i64, i128, isize, f32, f64;
+    PartiallyOrdered<Multiplicative>    => u8, u16, u32, u64, u128, usize, i8, i16, i32, i64, i128, isize, f32, f64;
+    Ordered<Additive>                   => u8, u16, u32, u64, u128, usize, i8, i16, i32, i64, i128, isize;
+    Ordered<Multiplicative>             => u8, u16, u32, u64, u128, usize, i8, i16, i32, i64, i128, isize;
+
+    Distributive<Multiplicative, Additive>  => u8, u16, u32, u64, u128, usize, i8, i16, i32, i64, i128, isize, f32, f64;
+
+    NonZero => u8, u16, u32, u64, u128, usize, i8, i16, i32, i64, i128, isize, f32, f64;
 }
 
 impl_identity! {

@@ -1,4 +1,6 @@
-pub trait TrigOps: Sized {
+use crate::algebra::ring::Ring;
+
+pub trait TrigOps: Ring + Sized {
     fn sin(&self) -> Self;
     fn cos(&self) -> Self;
     fn tan(&self) -> Self;
