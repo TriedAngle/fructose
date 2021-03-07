@@ -1,9 +1,11 @@
 use crate::algebra::group::{AbelianGroup, CommutativeMonoid, Monoid, Semigroup};
+use crate::algebra::properties::archimedean::ArchimedeanDiv;
 use crate::algebra::properties::bezout::Bezout;
 use crate::algebra::properties::euclidean::EuclideanDiv;
 use crate::algebra::properties::factorization::Factorizable;
 use crate::algebra::properties::gcd::GCD;
-use crate::algebra::properties::general::NonZero;
+use crate::algebra::properties::general::{NonZero, Ordered};
+use crate::algebra::properties::primality::Primality;
 use crate::operators::{Additive, Multiplicative, Operator};
 
 // Rings
@@ -120,6 +122,16 @@ pub trait SemiEuclideanDomain<A: Operator = Additive, M: Operator = Multiplicati
 {
 }
 
+pub trait NaturalCommutativeSemiRing:
+    SemiEuclideanDomain + Primality + ArchimedeanDiv + Ordered<Additive> + Ordered<Multiplicative>
+{
+}
+
+pub trait IntegerRing:
+    EuclideanDomain + Primality + ArchimedeanDiv + Ordered<Additive> + Ordered<Multiplicative>
+{
+}
+
 impl<T> NearRing for T where T: Monoid<Additive> + Semigroup<Multiplicative> {}
 
 impl<T> Semiring for T where T: CommutativeMonoid<Additive> + Monoid<Multiplicative> {}
@@ -150,3 +162,17 @@ impl<T> SemiBezoutDomain for T where T: SemiGCDDomain + Bezout {}
 impl<T> SemiUFDomain for T where T: SemiGCDDomain + Factorizable {}
 impl<T> SemiPIDomain for T where T: SemiUFDomain + SemiBezoutDomain {}
 impl<T> SemiEuclideanDomain for T where T: SemiPIDomain + EuclideanDiv {}
+
+impl<T> NaturalCommutativeSemiRing for T where
+    T: SemiEuclideanDomain
+        + Primality
+        + ArchimedeanDiv
+        + Ordered<Additive>
+        + Ordered<Multiplicative>
+{
+}
+
+impl<T> IntegerRing for T where
+    T: EuclideanDomain + Primality + ArchimedeanDiv + Ordered<Additive> + Ordered<Multiplicative>
+{
+}
