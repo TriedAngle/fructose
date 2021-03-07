@@ -6,7 +6,9 @@ use crate::algebra::properties::factorization::Factorizable;
 use crate::algebra::properties::gcd::GCD;
 use crate::algebra::properties::general::{NonZero, Ordered};
 use crate::algebra::properties::primality::Primality;
-use crate::operators::{Additive, Multiplicative, Operator};
+use crate::operators::{
+    Additive, ClosedAdd, ClosedMul, ClosedNeg, ClosedRem, ClosedSub, Multiplicative, Operator,
+};
 
 // Rings
 
@@ -123,12 +125,28 @@ pub trait SemiEuclideanDomain<A: Operator = Additive, M: Operator = Multiplicati
 }
 
 pub trait NaturalCommutativeSemiRing:
-    SemiEuclideanDomain + Primality + ArchimedeanDiv + Ordered<Additive> + Ordered<Multiplicative>
+    SemiEuclideanDomain
+    + ClosedAdd
+    + ClosedMul
+    + ClosedRem
+    + Primality
+    + ArchimedeanDiv
+    + Ordered<Additive>
+    + Ordered<Multiplicative>
 {
 }
 
 pub trait IntegerRing:
-    EuclideanDomain + Primality + ArchimedeanDiv + Ordered<Additive> + Ordered<Multiplicative>
+    EuclideanDomain
+    + ClosedAdd
+    + ClosedSub
+    + ClosedMul
+    + ClosedRem
+    + ClosedNeg
+    + Primality
+    + ArchimedeanDiv
+    + Ordered<Additive>
+    + Ordered<Multiplicative>
 {
 }
 
@@ -165,6 +183,9 @@ impl<T> SemiEuclideanDomain for T where T: SemiPIDomain + EuclideanDiv {}
 
 impl<T> NaturalCommutativeSemiRing for T where
     T: SemiEuclideanDomain
+        + ClosedAdd
+        + ClosedMul
+        + ClosedRem
         + Primality
         + ArchimedeanDiv
         + Ordered<Additive>
@@ -173,6 +194,15 @@ impl<T> NaturalCommutativeSemiRing for T where
 }
 
 impl<T> IntegerRing for T where
-    T: EuclideanDomain + Primality + ArchimedeanDiv + Ordered<Additive> + Ordered<Multiplicative>
+    T: EuclideanDomain
+        + ClosedAdd
+        + ClosedSub
+        + ClosedMul
+        + ClosedRem
+        + ClosedNeg
+        + Primality
+        + ArchimedeanDiv
+        + Ordered<Additive>
+        + Ordered<Multiplicative>
 {
 }
