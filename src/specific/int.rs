@@ -2,36 +2,73 @@ use crate::algebra::properties::archimedean::ArchimedeanDiv;
 use crate::algebra::properties::euclidean::EuclideanDiv;
 use crate::algebra::properties::general::Ordered;
 use crate::algebra::properties::primality::Primality;
-use crate::algebra::ring::{CommutativeRing, SemiEuclideanDomain};
-use crate::cast::CastInts;
+use crate::algebra::ring::{SemiEuclideanDomain, EuclideanDomain};
 use crate::operators::bit::ClosedBitOps;
 use crate::operators::{Additive, ClosedOps, Multiplicative};
+use crate::algebra::helpers::identity::{One, Zero};
 
-pub trait IntegerSubset:
-    CastInts
-    + ClosedOps
-    + SemiEuclideanDomain
+pub trait NaturalCommutativeSemiRing:
+    SemiEuclideanDomain
     + Primality
     + ArchimedeanDiv
     + Ordered<Additive>
     + Ordered<Multiplicative>
 {
-    type Unsigned: Natural + IntegerSubset<Signed = Self::Signed, Unsigned = Self::Unsigned>;
-    type Signed: Integer + IntegerSubset<Signed = Self::Signed, Unsigned = Self::Unsigned>;
 }
 
-pub trait Natural: IntegerSubset<Unsigned = Self> {}
+pub trait IntegerRing:
+    EuclideanDomain
+    + Primality
+    + ArchimedeanDiv
+    + Ordered<Additive>
+    + Ordered<Multiplicative>
+{
+}
 
-pub trait Integer: IntegerSubset<Signed = Self> + CommutativeRing {}
+pub trait Natural:
+    NaturalCommutativeSemiRing
+    + ClosedOps
+    + Zero
+    + One
+{
+}
 
-pub trait Bits: IntegerSubset + ClosedBitOps {}
+pub trait Integer:
+    IntegerRing
+    + ClosedOps
+    + Zero
+    + One
+{
+}
+
+pub trait Bits:
+    ClosedBitOps
+    + ClosedOps
+    + SemiEuclideanDomain
+    + Primality
+    + ArchimedeanDiv
+    + Zero
+    + One
+    + Ordered<Additive>
+    + Ordered<Multiplicative>
+{
+}
 
 macro_rules! impl_integer {
+    // Helpers
+    (@UNIT $val:expr => @natural) => {
+        $val as Self::Norm
+    };
+    (@UNIT $val:expr => @integer) => {
+        $val.abs() as Self::Norm
+    };
     // Entrypoint
     ($($signed:ident:$unsigned:ident), *) => {
         $(
             impl_integer!(@NEXT $unsigned : $signed : $unsigned @natural);
             impl_integer!(@NEXT $signed : $signed : $unsigned @integer);
+            impl NaturalCommutativeSemiRing for $unsigned {}
+            impl IntegerRing for $signed {}
             impl Natural for $unsigned {}
             impl Integer for $signed {}
             impl Bits for $unsigned {}
@@ -46,7 +83,7 @@ macro_rules! impl_integer {
 
             #[inline]
             fn euclid_norm(&self) -> Self::Norm {
-                *self as Self::Norm
+                impl_integer!(@UNIT *self => $($tt)*)
             }
 
             #[inline]
@@ -54,19 +91,14 @@ macro_rules! impl_integer {
                 (self /rhs, self % rhs)
             }
         }
-
-        impl IntegerSubset for $set {
-            type Signed = $signed;
-            type Unsigned = $unsigned;
-        }
     }
 }
 
 impl_integer!(
-    i8: u8,
-    i16: u16,
-    i32: u32,
-    i64: u64,
-    i128: u128,
-    isize: usize
+    i8    : u8,
+    i16   : u16,
+    i32   : u32,
+    i64   : u64,
+    i128  : u128,
+    isize : usize
 );
