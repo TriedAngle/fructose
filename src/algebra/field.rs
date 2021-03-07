@@ -1,6 +1,6 @@
 use crate::algebra::lattice::Lattice;
-use crate::algebra::operators::{Additive, Multiplicative, Operator};
 use crate::algebra::ring::DivisionRing;
+use crate::operators::{Additive, Multiplicative, Operator};
 
 // (alias) All Fields are Division Rings
 pub trait Field<A: Operator = Additive, M: Operator = Multiplicative>: DivisionRing<A, M> {}

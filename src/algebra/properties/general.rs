@@ -1,4 +1,4 @@
-use crate::algebra::operators::{Additive, Multiplicative, Operator};
+use crate::operators::{Additive, Multiplicative, Operator};
 use std::ops::{Add, Mul, Neg};
 
 pub trait Set<O: Operator> {

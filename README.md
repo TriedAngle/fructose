@@ -23,7 +23,8 @@
   
   
 #### Credit
-This project is inspired by multiple other crates and I want to thank them:
+This project couldn't have been released without those sources:
 * num-traits
-* ndarry
 * maths-traits
+* wikipedia
+* Abstract Algebra - Pierre Antoine Grillet

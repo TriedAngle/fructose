@@ -1,5 +1,5 @@
-use crate::algebra::operators::{Additive, ClosedNeg};
 use crate::algebra::properties::general::Identity;
+use crate::operators::{Additive, ClosedNeg};
 
 pub trait Signed: ClosedNeg {
     fn abs(&self) -> Self;

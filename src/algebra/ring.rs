@@ -1,10 +1,10 @@
 use crate::algebra::group::{AbelianGroup, CommutativeMonoid, Monoid, Semigroup};
-use crate::algebra::operators::{Additive, Multiplicative, Operator};
 use crate::algebra::properties::bezout::Bezout;
 use crate::algebra::properties::euclidean::EuclideanDiv;
 use crate::algebra::properties::factorization::Factorizable;
 use crate::algebra::properties::gcd::GCD;
 use crate::algebra::properties::general::NonZero;
+use crate::operators::{Additive, Multiplicative, Operator};
 
 // Rings
 

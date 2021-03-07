@@ -1,6 +1,6 @@
 use crate::algebra::group::AbelianGroup;
-use crate::algebra::operators::{Additive, Multiplicative, Operator};
 use crate::algebra::ring::{CommutativeRing, Ring};
+use crate::operators::{Additive, Multiplicative, Operator};
 
 pub trait Module<A: Operator = Additive, RA: Operator = Additive, RM: Operator = Multiplicative>:
     AbelianGroup<A>

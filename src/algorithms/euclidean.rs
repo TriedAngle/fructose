@@ -1,7 +1,7 @@
 use crate::algebra::helpers::identity::{One, Zero};
-use crate::algebra::operators::{ClosedMul, ClosedSub};
 use crate::algebra::properties::euclidean::EuclideanDiv;
 use crate::algebra::ring::CommutativeSemiring;
+use crate::operators::{ClosedMul, ClosedSub};
 
 pub fn euclidean<T: CommutativeSemiring + EuclideanDiv + Copy + Zero>(lhs: T, rhs: T) -> T {
     fn helper<U>(a: U, b: U) -> U
