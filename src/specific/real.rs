@@ -1,9 +1,7 @@
 use crate::algebra::field::PartiallyOrderedField;
 use crate::algebra::helpers::sign::Signed;
 use crate::algebra::helpers::trig::TrigOps;
-use crate::algebra::operators::{Additive, ClosedOps, Multiplicative};
-use crate::algebra::properties::Identity;
-use std::fmt::Debug;
+use crate::algebra::operators::ClosedOps;
 
 pub trait RealField: PartiallyOrderedField + ClosedOps + Copy + Signed + TrigOps {
     fn powi(self, n: i32) -> Self;
