@@ -1,7 +1,9 @@
-use crate::specific::int::Natural;
+use crate::algebra::properties::general::PartiallyOrdered;
+use crate::algebra::ring::SemiEuclideanDomain;
+use crate::operators::{Additive, Multiplicative};
 
 pub trait EuclideanDiv: Sized {
-    type Norm: Natural;
+    type Norm: SemiEuclideanDomain + PartiallyOrdered<Additive> + PartiallyOrdered<Multiplicative>;
 
     fn euclid_norm(&self) -> Self::Norm;
 
@@ -50,6 +52,26 @@ macro_rules! impl_euclidean_int {
     };
 }
 
+macro_rules! impl_euclidean_float {
+    ($($set:ident)*) => {
+        $(
+            impl EuclideanDiv for $set {
+                type Norm = $set;
+
+                #[inline]
+                fn euclid_norm(&self) -> Self::Norm {
+                    self.abs()
+                }
+
+                #[inline]
+                fn div_euclid(&self, rhs: Self) -> (Self, Self) {
+                    (self / rhs, self % rhs)
+                }
+            }
+        )*
+    }
+}
+
 impl_euclidean_int! {
     i8    : u8,
     i16   : u16,
@@ -58,3 +80,5 @@ impl_euclidean_int! {
     i128  : u128,
     isize : usize
 }
+
+impl_euclidean_float!(f32 f64);

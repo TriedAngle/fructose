@@ -124,7 +124,7 @@ pub trait SemiEuclideanDomain<A: Operator = Additive, M: Operator = Multiplicati
 {
 }
 
-pub trait NaturalCommutativeSemiRing:
+pub trait NaturalCommutativeSemiring:
     SemiEuclideanDomain
     + ClosedAdd
     + ClosedMul
@@ -181,7 +181,7 @@ impl<T> SemiUFDomain for T where T: SemiGCDDomain + Factorizable {}
 impl<T> SemiPIDomain for T where T: SemiUFDomain + SemiBezoutDomain {}
 impl<T> SemiEuclideanDomain for T where T: SemiPIDomain + EuclideanDiv {}
 
-impl<T> NaturalCommutativeSemiRing for T where
+impl<T> NaturalCommutativeSemiring for T where
     T: SemiEuclideanDomain
         + ClosedAdd
         + ClosedMul

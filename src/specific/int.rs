@@ -2,14 +2,15 @@ use crate::algebra::helpers::identity::{One, Zero};
 use crate::algebra::properties::archimedean::ArchimedeanDiv;
 use crate::algebra::properties::general::Ordered;
 use crate::algebra::properties::primality::Primality;
-use crate::algebra::ring::{IntegerRing, NaturalCommutativeSemiRing, SemiEuclideanDomain};
+use crate::algebra::ring::{IntegerRing, NaturalCommutativeSemiring, SemiEuclideanDomain};
 use crate::operators::bit::ClosedBitOps;
 use crate::operators::{
     Additive, ClosedAdd, ClosedMul, ClosedNeg, ClosedOps, ClosedRem, ClosedSub, Multiplicative,
 };
 
+// NOTE: right now everything can be used as a natural number, so this needs to be fixed asap.
 pub trait Natural:
-    NaturalCommutativeSemiRing + ClosedAdd + ClosedMul + ClosedRem + Zero + One
+    NaturalCommutativeSemiring + ClosedAdd + ClosedMul + ClosedRem + Zero + One
 {
 }
 
@@ -31,8 +32,7 @@ pub trait Bits:
 {
 }
 
-// NOTE: right now everything can be used as a natural number, so this needs to be fixed asap.
-impl<T> Natural for T where T: NaturalCommutativeSemiRing + Zero + One {}
+impl<T> Natural for T where T: NaturalCommutativeSemiring + Zero + One {}
 
 impl<T> Integer for T where T: IntegerRing + Zero + One {}
 

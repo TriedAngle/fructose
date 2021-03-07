@@ -38,4 +38,4 @@ macro_rules! impl_gcd {
     }
 }
 impl_gcd!(u8 u16 u32 u64 u128 usize => unsigned);
-impl_gcd!(i8 i16 i32 i64 i128 isize);
+impl_gcd!(i8 i16 i32 i64 i128 isize f32 f64);

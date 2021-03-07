@@ -1,16 +1,10 @@
-use crate::algebra::field::Field;
+use crate::algebra::field::{ComplexField, RealField};
 use crate::algebra::helpers::trig::TrigOps;
-use crate::algebra::lattice::Lattice;
-use crate::algebra::properties::archimedean::ArchimedeanDiv;
-use crate::algebra::ring::EuclideanDomain;
-use crate::operators::ClosedOps;
 
-pub trait RealField: Field + EuclideanDomain + ArchimedeanDiv + Lattice {}
+pub trait Real: RealField + TrigOps {}
 
-pub trait ComplexField: Field + EuclideanDomain + ArchimedeanDiv + Lattice {
-    type RealField: RealField;
-}
+pub trait Complex: ComplexField + TrigOps {}
 
-pub trait Real: RealField + ClosedOps + TrigOps {}
+impl<T> Real for T where T: RealField + TrigOps {}
 
-pub trait Complex: ComplexField + ClosedOps + TrigOps {}
+impl<T> Complex for T where T: ComplexField + TrigOps {}
