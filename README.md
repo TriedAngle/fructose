@@ -11,12 +11,13 @@
 
 
 #### Notes: 
-* Rust 1.51 (nightly only right now) and onwards is required
+* Rust 1.50 and onwards is required
 
 * For planned and current features see TODO.md
 
 * Why didn't you use crate X instead of writing Y yourself?  
-  Because I decided not to ;)
+  Because I decided not to ;)\
+  I want something "stable" enough for others and flexible enough for me, this is an attempt.
 
 * this project is under heavy development and not really usable from a consumer-perspective 
   right now. Expect many breaking updates as architecture and features are not decided yet.
