@@ -131,6 +131,7 @@ pub trait NaturalCommutativeSemiring:
     + ClosedRem
     + Primality
     + ArchimedeanDiv
+    + Eq
     + Ordered<Additive>
     + Ordered<Multiplicative>
 {
@@ -145,6 +146,7 @@ pub trait IntegerRing:
     + ClosedNeg
     + Primality
     + ArchimedeanDiv
+    + Eq
     + Ordered<Additive>
     + Ordered<Multiplicative>
 {
@@ -188,6 +190,7 @@ impl<T> NaturalCommutativeSemiring for T where
         + ClosedRem
         + Primality
         + ArchimedeanDiv
+        + Eq
         + Ordered<Additive>
         + Ordered<Multiplicative>
 {
@@ -202,6 +205,7 @@ impl<T> IntegerRing for T where
         + ClosedNeg
         + Primality
         + ArchimedeanDiv
+        + Eq
         + Ordered<Additive>
         + Ordered<Multiplicative>
 {

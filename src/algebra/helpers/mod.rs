@@ -3,6 +3,7 @@
 pub mod bound;
 pub mod exp;
 pub mod identity;
+pub mod mul_add;
 pub mod pow;
 pub mod sign;
 pub mod trig;
