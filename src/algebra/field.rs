@@ -1,3 +1,4 @@
+use crate::algebra::helpers::exp::Exponentiation;
 use crate::algebra::lattice::Lattice;
 use crate::algebra::properties::archimedean::ArchimedeanDiv;
 use crate::algebra::ring::{DivisionRing, EuclideanDomain};
@@ -11,9 +12,14 @@ pub trait PartiallyOrderedField<A: Operator = Additive, M: Operator = Multiplica
 {
 }
 
-pub trait RealField: Field + ClosedOps + EuclideanDomain + ArchimedeanDiv + Lattice {}
+pub trait RealField:
+    Field + ClosedOps + EuclideanDomain + ArchimedeanDiv + Lattice + Exponentiation
+{
+}
 
-pub trait ComplexField: Field + ClosedOps + EuclideanDomain + ArchimedeanDiv + Lattice {
+pub trait ComplexField:
+    Field + ClosedOps + EuclideanDomain + ArchimedeanDiv + Lattice + Exponentiation
+{
     type RealField: RealField;
 }
 
@@ -21,11 +27,14 @@ impl<T, A: Operator, M: Operator> Field<A, M> for T where T: DivisionRing<A, M> 
 
 impl<T, A: Operator, M: Operator> PartiallyOrderedField<A, M> for T where T: Field<A, M> + Lattice {}
 
-impl<T> RealField for T where T: Field + ClosedOps + EuclideanDomain + ArchimedeanDiv + Lattice {}
+impl<T> RealField for T where
+    T: Field + ClosedOps + EuclideanDomain + ArchimedeanDiv + Lattice + Exponentiation
+{
+}
 
 impl<T> ComplexField for T
 where
-    T: Field + ClosedOps + EuclideanDomain + ArchimedeanDiv + Lattice,
+    T: Field + ClosedOps + EuclideanDomain + ArchimedeanDiv + Lattice + Exponentiation,
 {
     type RealField = T;
 }
