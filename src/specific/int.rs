@@ -7,14 +7,15 @@ use crate::algebra::properties::primality::Primality;
 use crate::algebra::ring::{IntegerRing, NaturalCommutativeSemiring, SemiEuclideanDomain};
 use crate::operators::bit::ClosedBitOps;
 use crate::operators::{Additive, ClosedOps, Multiplicative};
+use crate::cast::{FromU32, FromI32};
 
 // NOTE: right now everything can be used as a natural number, so this needs to be fixed asap.
 pub trait Natural:
-    NaturalCommutativeSemiring + Bounded + MulAdd + MulAddAssign + Zero + One
+    NaturalCommutativeSemiring + Bounded + MulAdd + MulAddAssign + Zero + One + FromU32
 {
 }
 
-pub trait Integer: IntegerRing + Bounded + MulAdd + MulAddAssign + Zero + One {}
+pub trait Integer: IntegerRing + Bounded + MulAdd + MulAddAssign + Zero + One + FromU32 + FromI32{}
 
 pub trait Bits:
     ClosedBitOps
@@ -31,11 +32,11 @@ pub trait Bits:
 }
 
 impl<T> Natural for T where
-    T: NaturalCommutativeSemiring + Bounded + MulAdd + MulAddAssign + Zero + One
+    T: NaturalCommutativeSemiring + Bounded + MulAdd + MulAddAssign + Zero + One + FromU32
 {
 }
 
-impl<T> Integer for T where T: IntegerRing + Bounded + MulAdd + MulAddAssign + Zero + One {}
+impl<T> Integer for T where T: IntegerRing + Bounded + MulAdd + MulAddAssign + Zero + One + FromU32 + FromI32{}
 
 impl<T> Bits for T where
     T: ClosedBitOps
