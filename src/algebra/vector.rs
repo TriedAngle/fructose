@@ -22,7 +22,7 @@ pub trait NormedSpace: VectorSpace<Field = <Self as NormedSpace>::ComplexField> 
 
     fn normalize(&mut self);
 
-    fn normalized(&self) -> Self::Norm;
+    fn normalized(&self) -> Self;
 }
 
 pub trait InnerSpace: NormedSpace {
