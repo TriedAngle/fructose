@@ -2,6 +2,7 @@
 // in the future those traits will be derived differently.
 pub mod bound;
 pub mod exp;
+pub mod float;
 pub mod identity;
 pub mod mul_add;
 pub mod pow;

@@ -4,7 +4,7 @@ use crate::algebra::helpers::mul_add::{MulAdd, MulAddAssign};
 use crate::algebra::properties::archimedean::ArchimedeanDiv;
 use crate::algebra::properties::general::Ordered;
 use crate::algebra::properties::primality::Primality;
-use crate::algebra::ring::{IntegerRing, NaturalCommutativeSemiring, SemiEuclideanDomain};
+use crate::algebra::ring::{EuclideanSemidomain, IntegerRing, NaturalCommutativeSemiring};
 use crate::cast::{FromI32, FromU32};
 use crate::operators::bit::ClosedBitOps;
 use crate::operators::{Additive, ClosedOps, Multiplicative};
@@ -23,7 +23,7 @@ pub trait Integer:
 pub trait Bits:
     ClosedBitOps
     + ClosedOps
-    + SemiEuclideanDomain
+    + EuclideanSemidomain
     + Primality
     + ArchimedeanDiv
     + Bounded
@@ -47,7 +47,7 @@ impl<T> Integer for T where
 impl<T> Bits for T where
     T: ClosedBitOps
         + ClosedOps
-        + SemiEuclideanDomain
+        + EuclideanSemidomain
         + Primality
         + ArchimedeanDiv
         + Bounded

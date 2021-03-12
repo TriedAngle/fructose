@@ -73,59 +73,59 @@ pub trait BezoutDomain<A: Operator = Additive, M: Operator = Multiplicative>:
 {
 }
 
-pub trait UFDomain<A: Operator = Additive, M: Operator = Multiplicative>:
+pub trait UFDDomain<A: Operator = Additive, M: Operator = Multiplicative>:
     GCDDomain<A, M> + Factorizable
 {
 }
 
-pub trait PIDomain<A: Operator = Additive, M: Operator = Multiplicative>:
-    UFDomain<A, M> + BezoutDomain<A, M>
+pub trait PIDDomain<A: Operator = Additive, M: Operator = Multiplicative>:
+    UFDDomain<A, M> + BezoutDomain<A, M>
 {
 }
 
 pub trait EuclideanDomain<A: Operator = Additive, M: Operator = Multiplicative>:
-    PIDomain<A, M> + EuclideanDiv
+    PIDDomain<A, M> + EuclideanDiv
 {
 }
 
 // Domains
-pub trait SemiDomain<A: Operator = Additive, M: Operator = Multiplicative>:
+pub trait Semidomain<A: Operator = Additive, M: Operator = Multiplicative>:
     Semiring<A, M> + NonZero
 {
 }
 
-pub trait SemiIntegralDomain<A: Operator = Additive, M: Operator = Multiplicative>:
+pub trait IntegralSemidomain<A: Operator = Additive, M: Operator = Multiplicative>:
     CommutativeSemiring<A, M> + NonZero
 {
 }
 
-pub trait SemiGCDDomain<A: Operator = Additive, M: Operator = Multiplicative>:
-    SemiIntegralDomain<A, M> + GCD
+pub trait GCDSemidomain<A: Operator = Additive, M: Operator = Multiplicative>:
+    IntegralSemidomain<A, M> + GCD
 {
 }
 
-pub trait SemiBezoutDomain<A: Operator = Additive, M: Operator = Multiplicative>:
-    SemiGCDDomain<A, M> + Bezout
+pub trait BezoutSemidomain<A: Operator = Additive, M: Operator = Multiplicative>:
+    GCDSemidomain<A, M> + Bezout
 {
 }
 
-pub trait SemiUFDomain<A: Operator = Additive, M: Operator = Multiplicative>:
-    SemiGCDDomain<A, M> + Factorizable
+pub trait UFDSemidomain<A: Operator = Additive, M: Operator = Multiplicative>:
+    GCDSemidomain<A, M> + Factorizable
 {
 }
 
-pub trait SemiPIDomain<A: Operator = Additive, M: Operator = Multiplicative>:
-    SemiUFDomain<A, M> + SemiBezoutDomain<A, M>
+pub trait PIDSemidomain<A: Operator = Additive, M: Operator = Multiplicative>:
+    UFDSemidomain<A, M> + BezoutSemidomain<A, M>
 {
 }
 
-pub trait SemiEuclideanDomain<A: Operator = Additive, M: Operator = Multiplicative>:
-    SemiPIDomain<A, M> + EuclideanDiv
+pub trait EuclideanSemidomain<A: Operator = Additive, M: Operator = Multiplicative>:
+    PIDSemidomain<A, M> + EuclideanDiv
 {
 }
 
 pub trait NaturalCommutativeSemiring:
-    SemiEuclideanDomain
+    EuclideanSemidomain
     + ClosedAdd
     + ClosedMul
     + ClosedRem
@@ -171,20 +171,20 @@ impl<T> Domain for T where T: Ring + NonZero {}
 impl<T> IntegralDomain for T where T: CommutativeRing + NonZero {}
 impl<T> GCDDomain for T where T: IntegralDomain + GCD {}
 impl<T> BezoutDomain for T where T: GCDDomain + Bezout {}
-impl<T> UFDomain for T where T: GCDDomain + Factorizable {}
-impl<T> PIDomain for T where T: UFDomain + BezoutDomain {}
-impl<T> EuclideanDomain for T where T: PIDomain + EuclideanDiv {}
+impl<T> UFDDomain for T where T: GCDDomain + Factorizable {}
+impl<T> PIDDomain for T where T: UFDDomain + BezoutDomain {}
+impl<T> EuclideanDomain for T where T: PIDDomain + EuclideanDiv {}
 
-impl<T> SemiDomain for T where T: Semiring + NonZero {}
-impl<T> SemiIntegralDomain for T where T: CommutativeSemiring + NonZero {}
-impl<T> SemiGCDDomain for T where T: SemiIntegralDomain + GCD {}
-impl<T> SemiBezoutDomain for T where T: SemiGCDDomain + Bezout {}
-impl<T> SemiUFDomain for T where T: SemiGCDDomain + Factorizable {}
-impl<T> SemiPIDomain for T where T: SemiUFDomain + SemiBezoutDomain {}
-impl<T> SemiEuclideanDomain for T where T: SemiPIDomain + EuclideanDiv {}
+impl<T> Semidomain for T where T: Semiring + NonZero {}
+impl<T> IntegralSemidomain for T where T: CommutativeSemiring + NonZero {}
+impl<T> GCDSemidomain for T where T: IntegralSemidomain + GCD {}
+impl<T> BezoutSemidomain for T where T: GCDSemidomain + Bezout {}
+impl<T> UFDSemidomain for T where T: GCDSemidomain + Factorizable {}
+impl<T> PIDSemidomain for T where T: UFDSemidomain + BezoutSemidomain {}
+impl<T> EuclideanSemidomain for T where T: PIDSemidomain + EuclideanDiv {}
 
 impl<T> NaturalCommutativeSemiring for T where
-    T: SemiEuclideanDomain
+    T: EuclideanSemidomain
         + ClosedAdd
         + ClosedMul
         + ClosedRem
