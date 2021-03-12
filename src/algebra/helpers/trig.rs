@@ -1,7 +1,6 @@
-use crate::algebra::field::Field;
 use crate::algebra::helpers::exp::Exponentiation;
 
-pub trait TrigOps: Field + Exponentiation + Sized {
+pub trait TrigOps: Exponentiation + Sized {
     const PI: Self;
     const TAU: Self;
     const FRAC_PI_2: Self;
@@ -81,22 +80,13 @@ macro_rules! float_to_option {
 }
 
 macro_rules! impl_trig_float {
-    ($($t:ty)*) => {
+    ($($set:ty => [$($name: ident = $val:expr);* $(;)?]);* $(;)?) => {
         $(
-            impl TrigOps for $t {
+                impl TrigOps for $set {
 
-                forward! {
-                    const PI: Self;
-                    const TAU: Self;
-                    const FRAC_PI_2: Self;
-                    const FRAC_PI_3: Self;
-                    const FRAC_PI_4: Self;
-                    const FRAC_PI_6: Self;
-                    const FRAC_PI_8: Self;
-                    const FRAC_1_PI: Self;
-                    const FRAC_2_PI: Self;
-                    const FRAC_2_SQRT_PI: Self;
-                }
+                $(
+                    const $name: $set = $val;
+                )*
 
                 #[inline]
                 fn try_tan(self) -> Option<Self> {
@@ -161,4 +151,29 @@ macro_rules! impl_trig_float {
     }
 }
 
-impl_trig_float!(f32 f64);
+impl_trig_float! {
+    f32 => [
+        PI              = core::f32::consts::PI;
+        TAU             = core::f32::consts::TAU;
+        FRAC_PI_2       = core::f32::consts::FRAC_PI_2;
+        FRAC_PI_3       = core::f32::consts::FRAC_PI_3;
+        FRAC_PI_4       = core::f32::consts::FRAC_PI_4;
+        FRAC_PI_6       = core::f32::consts::FRAC_PI_6;
+        FRAC_PI_8       = core::f32::consts::FRAC_PI_8;
+        FRAC_1_PI       = core::f32::consts::FRAC_1_PI;
+        FRAC_2_PI       = core::f32::consts::FRAC_2_PI;
+        FRAC_2_SQRT_PI  = core::f32::consts::FRAC_2_SQRT_PI;
+    ];
+    f64 => [
+        PI              = core::f64::consts::PI;
+        TAU             = core::f64::consts::TAU;
+        FRAC_PI_2       = core::f64::consts::FRAC_PI_2;
+        FRAC_PI_3       = core::f64::consts::FRAC_PI_3;
+        FRAC_PI_4       = core::f64::consts::FRAC_PI_4;
+        FRAC_PI_6       = core::f64::consts::FRAC_PI_6;
+        FRAC_PI_8       = core::f64::consts::FRAC_PI_8;
+        FRAC_1_PI       = core::f64::consts::FRAC_1_PI;
+        FRAC_2_PI       = core::f64::consts::FRAC_2_PI;
+        FRAC_2_SQRT_PI  = core::f64::consts::FRAC_2_SQRT_PI;
+    ];
+}

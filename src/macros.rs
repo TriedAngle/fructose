@@ -15,9 +15,9 @@ macro_rules! forward {
             }
         )*
     };
-    ($(const $const:ident: Self;)*) => {
+    ($(const $cons:ident: $path:path;)*) => {
         $(
-            const $const: Self = Self::$const;
+            const $cons: Self = <$path>::$cons;
         )*
     };
 }
