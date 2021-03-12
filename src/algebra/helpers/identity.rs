@@ -27,6 +27,14 @@ pub trait Zero: Identity<Multiplicative> + Sized + PartiallyOrdered<Multiplicati
     }
 }
 
+pub fn zero<T: Zero>() -> T {
+    T::zero()
+}
+
+pub fn one<T: One>() -> T {
+    T::one()
+}
+
 macro_rules! impl_helper_identities {
     ($($t:ty => $zero:expr, $one:expr)+) => {
         $(

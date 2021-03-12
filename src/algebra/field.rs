@@ -1,4 +1,5 @@
 use crate::algebra::helpers::exp::Exponentiation;
+use crate::algebra::helpers::trig::TrigOps;
 use crate::algebra::lattice::Lattice;
 use crate::algebra::properties::archimedean::ArchimedeanDiv;
 use crate::algebra::ring::{DivisionRing, EuclideanDomain};
@@ -13,14 +14,40 @@ pub trait PartiallyOrderedField<A: Operator = Additive, M: Operator = Multiplica
 }
 
 pub trait RealField:
-    Field + ClosedOps + EuclideanDomain + ArchimedeanDiv + Lattice + Exponentiation
+    Field + ClosedOps + TrigOps + EuclideanDomain + ArchimedeanDiv + Lattice + Exponentiation
 {
 }
 
 pub trait ComplexField:
-    Field + ClosedOps + EuclideanDomain + ArchimedeanDiv + Lattice + Exponentiation
+    Field + ClosedOps + TrigOps + EuclideanDomain + ArchimedeanDiv + Lattice + Exponentiation
 {
     type RealField: RealField;
+
+    fn from_real(re: Self::RealField) -> Self;
+
+    fn from_imaginary(im: Self::RealField) -> Self;
+
+    fn real(&self) -> Self::RealField;
+
+    fn imaginary(&self) -> Self::RealField;
+
+    fn modulus(&self) -> Self::RealField;
+
+    fn argument(&self) -> Self::RealField;
+
+    fn scale(&self, factor: Self::RealField) -> Self;
+
+    fn unscale(&self, factor: Self::RealField) -> Self;
+
+    fn to_polar(&self) -> (Self::RealField, Self::RealField) {
+        (self.modulus(), self.argument())
+    }
+
+    fn to_exponential(&self) -> (Self::RealField, Self);
+
+    fn signum(&self) -> Self {
+        self.to_exponential().1
+    }
 }
 
 impl<T, A: Operator, M: Operator> Field<A, M> for T where T: DivisionRing<A, M> {}
@@ -28,13 +55,6 @@ impl<T, A: Operator, M: Operator> Field<A, M> for T where T: DivisionRing<A, M> 
 impl<T, A: Operator, M: Operator> PartiallyOrderedField<A, M> for T where T: Field<A, M> + Lattice {}
 
 impl<T> RealField for T where
-    T: Field + ClosedOps + EuclideanDomain + ArchimedeanDiv + Lattice + Exponentiation
+    T: Field + ClosedOps + TrigOps + Exponentiation + EuclideanDomain + ArchimedeanDiv + Lattice
 {
-}
-
-impl<T> ComplexField for T
-where
-    T: Field + ClosedOps + EuclideanDomain + ArchimedeanDiv + Lattice + Exponentiation,
-{
-    type RealField = T;
 }

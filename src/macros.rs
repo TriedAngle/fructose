@@ -15,6 +15,11 @@ macro_rules! forward {
             }
         )*
     };
+    ($(const $const:ident: Self;)*) => {
+        $(
+            const $const: Self = Self::$const;
+        )*
+    };
 }
 
 macro_rules! impl_set {

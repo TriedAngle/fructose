@@ -96,7 +96,7 @@ macro_rules! impl_from {
     }
 }
 
-impl_from!{
+impl_from! {
     usize:isize;
     u8:i8;
     u16:i16;
