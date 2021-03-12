@@ -1,4 +1,5 @@
 use crate::algebra::helpers::exp::Exponentiation;
+use crate::algebra::helpers::identity::{One, Zero};
 use crate::algebra::helpers::trig::TrigOps;
 use crate::algebra::lattice::Lattice;
 use crate::algebra::properties::archimedean::ArchimedeanDiv;
@@ -33,11 +34,13 @@ pub trait ComplexField:
 
     fn modulus(&self) -> Self::RealField;
 
+    fn modulus_squared(&self) -> Self::RealField;
+
     fn argument(&self) -> Self::RealField;
 
-    fn scale(&self, factor: Self::RealField) -> Self;
+    fn scale(&self, scalar: Self::RealField) -> Self;
 
-    fn unscale(&self, factor: Self::RealField) -> Self;
+    fn unscale(&self, scalar: Self::RealField) -> Self;
 
     fn to_polar(&self) -> (Self::RealField, Self::RealField) {
         (self.modulus(), self.argument())
@@ -58,3 +61,75 @@ impl<T> RealField for T where
     T: Field + ClosedOps + TrigOps + Exponentiation + EuclideanDomain + ArchimedeanDiv + Lattice
 {
 }
+
+macro_rules! impl_complex {
+    ($($set:ty)*) => {
+        $(
+            impl ComplexField for $set {
+                type RealField = $set;
+
+                #[inline]
+                fn from_real(re: Self::RealField) -> Self {
+                    re
+                }
+
+                #[inline]
+                fn from_imaginary(_: Self::RealField) -> Self {
+                    Self::zero()
+                }
+
+                #[inline]
+                fn real(&self) -> Self::RealField {
+                    *self
+                }
+
+                #[inline]
+                fn imaginary(&self) -> Self::RealField {
+                    Self::zero()
+                }
+
+                #[inline]
+                fn modulus(&self) -> Self::RealField {
+                    self.abs()
+                }
+
+                #[inline]
+                fn modulus_squared(&self) -> Self::RealField {
+                    self * self
+                }
+
+                #[inline]
+                fn argument(&self) -> Self::RealField {
+                    if *self >= Self::zero() {
+                        Self::zero()
+                    } else {
+                        Self::PI
+                    }
+                }
+
+                #[inline]
+                fn scale(&self, scalar: Self::RealField) -> Self {
+                    self * scalar
+                }
+
+                #[inline]
+                fn unscale(&self, scalar: Self::RealField) -> Self {
+                    self / scalar
+                }
+
+                #[inline]
+                fn to_exponential(&self) -> (Self::RealField, Self) {
+                    let m = self.modulus();
+
+                    if !m.is_zero() {
+                        (m, self.unscale(m))
+                    } else {
+                        (Self::RealField::zero(), Self::one())
+                    }
+                }
+            }
+        )*
+    }
+}
+
+impl_complex!(f32 f64);
