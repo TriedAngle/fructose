@@ -2,6 +2,17 @@ use crate::algebra::field::Field;
 use crate::algebra::helpers::exp::Exponentiation;
 
 pub trait TrigOps: Field + Exponentiation + Sized {
+    const PI: Self;
+    const TAU: Self;
+    const FRAC_PI_2: Self;
+    const FRAC_PI_3: Self;
+    const FRAC_PI_4: Self;
+    const FRAC_PI_6: Self;
+    const FRAC_PI_8: Self;
+    const FRAC_1_PI: Self;
+    const FRAC_2_PI: Self;
+    const FRAC_2_SQRT_PI: Self;
+
     fn sin(self) -> Self;
     fn cos(self) -> Self;
     fn tan(self) -> Self {
@@ -73,6 +84,20 @@ macro_rules! impl_trig_float {
     ($($t:ty)*) => {
         $(
             impl TrigOps for $t {
+
+                forward! {
+                    const PI: Self;
+                    const TAU: Self;
+                    const FRAC_PI_2: Self;
+                    const FRAC_PI_3: Self;
+                    const FRAC_PI_4: Self;
+                    const FRAC_PI_6: Self;
+                    const FRAC_PI_8: Self;
+                    const FRAC_1_PI: Self;
+                    const FRAC_2_PI: Self;
+                    const FRAC_2_SQRT_PI: Self;
+                }
+
                 #[inline]
                 fn try_tan(self) -> Option<Self> {
                     float_to_option!(self.tan())
