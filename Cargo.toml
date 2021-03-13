@@ -10,6 +10,12 @@ keywords = ["math", "mathematics", "science", "physics"]
 repository = "https://github.com/TriedWorks/fructose"
 description = "Mathematical Traits for the Glucose Library and the Rust programming language."
 
+[features]
+default = ["specifics"]
+Full = ["specifics", "const"]
+specifics = []
+const = []
+
 [lib]
 name = "fructose"
 path = "src/lib.rs"

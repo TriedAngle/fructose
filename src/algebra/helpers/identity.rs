@@ -27,12 +27,25 @@ pub trait Zero: Identity<Multiplicative> + Sized + PartiallyOrdered<Multiplicati
     }
 }
 
-pub fn zero<T: Zero>() -> T {
-    T::zero()
+pub trait Two: Sized + PartialEq {
+    fn two() -> Self;
+
+    fn set_two(&mut self) {
+        *self = Self::two();
+    }
+
+    fn is_two(&self) -> bool {
+        *self == Self::two()
+    }
 }
 
-pub fn one<T: One>() -> T {
-    T::one()
+#[cfg(feature = "const")]
+pub trait AnyInt: Sized {
+    fn any_num<const N: i32>() -> Self;
+
+    fn set_any_num<const N: i32>(&mut self);
+
+    fn is_any_num<const N: i32>(&self) -> bool;
 }
 
 macro_rules! impl_helper_identities {

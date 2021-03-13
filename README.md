@@ -27,5 +27,6 @@
 This project couldn't have been released without those sources:
 * num-traits
 * maths-traits
+* alga
 * wikipedia
 * Abstract Algebra - Pierre Antoine Grillet

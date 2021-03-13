@@ -1,14 +1,14 @@
-use crate::algebra::field::{ComplexField, RealField};
+use crate::algebra::field::{ComplexField, Field, RealField};
 use crate::algebra::module::Module;
 use crate::operators::{ClosedAdd, ClosedMul, ClosedOps};
 use std::ops::{Neg, Sub};
 
 pub trait Norm {
-    type Norm: RealField;
+    type Norm: Field;
 }
 
 pub trait VectorSpace: Module<Ring = <Self as VectorSpace>::Field> {
-    type Field: RealField;
+    type Field: Field;
 }
 
 pub trait NormedSpace: VectorSpace<Field = <Self as NormedSpace>::ComplexField> + Norm {

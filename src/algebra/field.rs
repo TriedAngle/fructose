@@ -15,12 +15,12 @@ pub trait PartiallyOrderedField<A: Operator = Additive, M: Operator = Multiplica
 }
 
 pub trait RealField:
-    Field + ClosedOps + TrigOps + EuclideanDomain + ArchimedeanDiv + Lattice + Exponentiation
+    Field + TrigOps + EuclideanDomain + ArchimedeanDiv + Lattice + Exponentiation
 {
 }
 
 pub trait ComplexField:
-    Field + ClosedOps + TrigOps + EuclideanDomain + ArchimedeanDiv + Lattice + Exponentiation
+    Field + TrigOps + EuclideanDomain + ArchimedeanDiv + Lattice + Exponentiation
 {
     type RealField: RealField;
 
@@ -53,12 +53,12 @@ pub trait ComplexField:
     }
 }
 
-impl<T, A: Operator, M: Operator> Field<A, M> for T where T: DivisionRing<A, M> {}
+impl<T, A: Operator, M: Operator> Field<A, M> for T where T: DivisionRing<A, M> + ClosedOps {}
 
 impl<T, A: Operator, M: Operator> PartiallyOrderedField<A, M> for T where T: Field<A, M> + Lattice {}
 
 impl<T> RealField for T where
-    T: Field + ClosedOps + TrigOps + Exponentiation + EuclideanDomain + ArchimedeanDiv + Lattice
+    T: Field + TrigOps + Exponentiation + EuclideanDomain + ArchimedeanDiv + Lattice
 {
 }
 
