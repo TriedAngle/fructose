@@ -154,19 +154,16 @@ pub trait IntegerRing:
 
 impl<T> NearRing for T where T: Monoid<Additive> + Semigroup<Multiplicative> {}
 
-impl<T> Semiring for T where T: CommutativeMonoid<Additive> + Monoid<Multiplicative> + ClosedAdd {}
+impl<T> Semiring for T where T: CommutativeMonoid<Additive> + Monoid<Multiplicative> {}
 
 impl<T> CommutativeSemiring for T where
     T: CommutativeMonoid<Additive> + CommutativeMonoid<Multiplicative>
 {
 }
 
-impl<T> Ring for T where T: AbelianGroup<Additive> + Monoid<Multiplicative> + ClosedAdd + ClosedSub {}
+impl<T> Ring for T where T: AbelianGroup<Additive> + Monoid<Multiplicative> {}
 
-impl<T> CommutativeRing for T where
-    T: AbelianGroup<Additive> + CommutativeMonoid<Multiplicative> + ClosedAdd + ClosedMul
-{
-}
+impl<T> CommutativeRing for T where T: AbelianGroup<Additive> + CommutativeMonoid<Multiplicative> {}
 
 impl<T> DivisionRing for T where T: AbelianGroup<Additive> + AbelianGroup<Multiplicative> {}
 
