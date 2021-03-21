@@ -1,8 +1,10 @@
 use crate::algebra::properties::general::{Identity, PartiallyOrdered};
 use crate::operators::{Additive, Multiplicative};
 
-pub trait One: Identity<Additive> + Sized + PartiallyOrdered<Additive> {
-    fn one() -> Self;
+pub trait One: Identity<Multiplicative> + Sized + PartiallyOrdered<Multiplicative> {
+    fn one() -> Self {
+        <Self as Identity<Multiplicative>>::identity()
+    }
 
     fn set_one(&mut self) {
         *self = Self::one()
@@ -13,9 +15,9 @@ pub trait One: Identity<Additive> + Sized + PartiallyOrdered<Additive> {
     }
 }
 
-pub trait Zero: Identity<Multiplicative> + Sized + PartiallyOrdered<Multiplicative> {
+pub trait Zero: Identity<Additive> + Sized + PartiallyOrdered<Additive> {
     fn zero() -> Self {
-        <Self as Identity<Multiplicative>>::identity()
+        <Self as Identity<Additive>>::identity()
     }
 
     fn set_zero(&mut self) {
