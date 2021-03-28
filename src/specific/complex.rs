@@ -1,8 +1,8 @@
 use crate::algebra::field::{ComplexField, RealField};
 use crate::algebra::helpers::bound::Bounded;
 use crate::algebra::helpers::identity::{One, Zero};
-use crate::algebra::helpers::mul_add::{MulAdd, MulAddAssign};
 use crate::algebra::helpers::sign::Signed;
+use crate::operators::mul_add::{MulAdd, MulAddAssign};
 
 pub trait Real: RealField + Signed + Bounded + MulAdd + MulAddAssign + Zero + One {}
 

@@ -4,7 +4,7 @@ pub mod bound;
 pub mod exp;
 pub mod float;
 pub mod identity;
-pub mod mul_add;
+pub mod list;
 pub mod pow;
 pub mod sign;
 pub mod trig;

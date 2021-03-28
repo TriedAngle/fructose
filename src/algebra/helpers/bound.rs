@@ -1,6 +1,6 @@
-pub trait Bounded {
-    const MIN: Self;
-    const MAX: Self;
+pub trait Bounded<Rhs = Self> {
+    const MIN: Rhs;
+    const MAX: Rhs;
 }
 
 macro_rules! impl_bounded {
