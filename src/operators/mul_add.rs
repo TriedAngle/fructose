@@ -11,6 +11,9 @@ pub trait MulAddAssign<A = Self, B = Self>: Set<Additive> + Set<Multiplicative> 
     fn mul_add_assign(&mut self, a: A, b: B);
 }
 
+pub trait ClosedMulAdd<A = Self, B = Self>: MulAdd<A, B> + MulAddAssign<A, B> {}
+impl<T, A, B> ClosedMulAdd<A, B> for T where T: MulAdd<A, B> + MulAddAssign<A, B> {}
+
 macro_rules! impl_mul_add {
     ($($set:ty)*) => {
         $(
