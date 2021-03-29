@@ -1,6 +1,6 @@
 [package]
 name = "fructose"
-version = "0.3.6"
+version = "0.3.7"
 authors = ["Sebastian <Sebastian@Strobl.net>"]
 edition = "2018"
 publish = true
@@ -11,10 +11,9 @@ repository = "https://github.com/TriedWorks/fructose"
 description = "Mathematical Traits for the Glucose Library and the Rust programming language."
 
 [features]
-default = ["specifics"]
-Full = ["specifics", "const"]
+default = ["full"]
+full = ["specifics"]
 specifics = []
-const = []
 
 [lib]
 name = "fructose"

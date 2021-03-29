@@ -41,7 +41,6 @@ pub trait Two: Sized + PartialEq {
     }
 }
 
-#[cfg(feature = "const")]
 pub trait AnyInt: Sized {
     fn any_num<const N: i32>() -> Self;
 
