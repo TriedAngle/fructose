@@ -29,6 +29,10 @@ pub trait Zero: Identity<Additive> + Sized + PartialEq {
     }
 }
 
+impl<T> One for T where T: Identity<Multiplicative> + Sized + PartialEq { }
+
+impl<T> Zero for T where T: Identity<Additive> + Sized + PartialEq { }
+
 pub trait Two: Sized + PartialEq {
     fn two() -> Self;
 
@@ -47,47 +51,4 @@ pub trait AnyInt: Sized {
     fn set_any_num<const N: i32>(&mut self);
 
     fn is_any_num<const N: i32>(&self) -> bool;
-}
-
-macro_rules! impl_helper_identities {
-    ($($t:ty => $zero:expr, $one:expr)+) => {
-        $(
-            impl Zero for $t {
-                fn zero() -> Self {
-                    $zero
-                }
-
-                fn is_zero(&self) -> bool {
-                    *self == $zero
-                }
-            }
-
-            impl One for $t {
-                fn one() -> Self {
-                    $one
-                }
-
-                fn is_one(&self) -> bool {
-                    *self == $one
-                }
-            }
-        )*
-    }
-}
-
-impl_helper_identities! {
-    usize   => 0, 1
-    u8      => 0, 1
-    u16     => 0, 1
-    u32     => 0, 1
-    u64     => 0, 1
-    u128    => 0, 1
-    isize   => 0, 1
-    i8      => 0, 1
-    i16     => 0, 1
-    i32     => 0, 1
-    i64     => 0, 1
-    i128    => 0, 1
-    f32     => 0.0, 1.0
-    f64     => 0.0, 1.0
 }

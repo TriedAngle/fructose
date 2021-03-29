@@ -52,4 +52,4 @@ macro_rules! impl_mul_add {
 }
 
 impl_mul_add!(f32 f64);
-impl_mul_add!(u8 u16 u32 u64 u128 usize i8 i16 i32 i64 i128 => int);
+impl_mul_add!(u8 u16 u32 u64 u128 usize i8 i16 i32 i64 i128 isize => int);
