@@ -7,7 +7,7 @@ use crate::properties::bezout::Bezout;
 use crate::properties::euclidean::EuclideanDiv;
 use crate::properties::factorization::Factorizable;
 use crate::properties::gcd::GCD;
-use crate::properties::general::{NonZero, Ordered};
+use crate::properties::general::NonZero;
 use crate::properties::primality::Primality;
 
 // Rings
@@ -125,15 +125,7 @@ pub trait EuclideanSemidomain<A: Operator = Additive, M: Operator = Multiplicati
 }
 
 pub trait NaturalCommutativeSemiring:
-    EuclideanSemidomain
-    + ClosedAdd
-    + ClosedMul
-    + ClosedRem
-    + Primality
-    + ArchimedeanDiv
-    + Eq
-    + Ordered<Additive>
-    + Ordered<Multiplicative>
+    EuclideanSemidomain + ClosedAdd + ClosedMul + ClosedRem + Primality + ArchimedeanDiv + Eq + Ord
 {
 }
 
@@ -147,8 +139,7 @@ pub trait IntegerRing:
     + Primality
     + ArchimedeanDiv
     + Eq
-    + Ordered<Additive>
-    + Ordered<Multiplicative>
+    + Ord
 {
 }
 
@@ -191,8 +182,7 @@ impl<T> NaturalCommutativeSemiring for T where
         + Primality
         + ArchimedeanDiv
         + Eq
-        + Ordered<Additive>
-        + Ordered<Multiplicative>
+        + Ord
 {
 }
 
@@ -206,7 +196,6 @@ impl<T> IntegerRing for T where
         + Primality
         + ArchimedeanDiv
         + Eq
-        + Ordered<Additive>
-        + Ordered<Multiplicative>
+        + Ord
 {
 }

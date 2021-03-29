@@ -1,7 +1,7 @@
 use crate::operators::Additive;
-use crate::properties::general::{Associative, PartiallyOrdered};
+use crate::properties::general::Associative;
 
-pub trait ArchimedeanProperty: PartiallyOrdered<Additive> + Associative<Additive> {}
+pub trait ArchimedeanProperty: PartialOrd + Associative<Additive> {}
 
 pub trait ArchimedeanDiv: Sized + ArchimedeanProperty {}
 

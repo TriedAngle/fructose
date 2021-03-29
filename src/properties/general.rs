@@ -1,6 +1,4 @@
-use crate::algebra::lattice::Lattice;
 use crate::operators::{Additive, Multiplicative, Operator};
-use std::cmp::Ordering;
 use std::ops::{Add, Mul, Neg};
 
 pub trait Set<O: Operator> {
@@ -61,10 +59,10 @@ impl_properties! {
     Commutative<Additive>       => u8, u16, u32, u64, u128, usize, i8, i16, i32, i64, i128, isize, f32, f64;
     Commutative<Multiplicative> => u8, u16, u32, u64, u128, usize, i8, i16, i32, i64, i128, isize, f32, f64;
 
-    PartiallyOrdered<Additive>          => u8, u16, u32, u64, u128, usize, i8, i16, i32, i64, i128, isize, f32, f64;
-    PartiallyOrdered<Multiplicative>    => u8, u16, u32, u64, u128, usize, i8, i16, i32, i64, i128, isize, f32, f64;
-    Ordered<Additive>                   => u8, u16, u32, u64, u128, usize, i8, i16, i32, i64, i128, isize;
-    Ordered<Multiplicative>             => u8, u16, u32, u64, u128, usize, i8, i16, i32, i64, i128, isize;
+    // PartiallyOrdered<Additive>          => u8, u16, u32, u64, u128, usize, i8, i16, i32, i64, i128, isize, f32, f64;
+    // PartiallyOrdered<Multiplicative>    => u8, u16, u32, u64, u128, usize, i8, i16, i32, i64, i128, isize, f32, f64;
+    // Ordered<Additive>                   => u8, u16, u32, u64, u128, usize, i8, i16, i32, i64, i128, isize;
+    // Ordered<Multiplicative>             => u8, u16, u32, u64, u128, usize, i8, i16, i32, i64, i128, isize;
 
     Distributive<Multiplicative, Additive>  => u8, u16, u32, u64, u128, usize, i8, i16, i32, i64, i128, isize, f32, f64;
 
