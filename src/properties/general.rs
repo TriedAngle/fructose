@@ -1,4 +1,6 @@
+use crate::algebra::lattice::Lattice;
 use crate::operators::{Additive, Multiplicative, Operator};
+use std::cmp::Ordering;
 use std::ops::{Add, Mul, Neg};
 
 pub trait Set<O: Operator> {
@@ -31,8 +33,20 @@ pub trait Identity<O: Operator>: Set<O> {
 // marker trait for rings without a zero
 pub trait NonZero {}
 
-pub trait PartiallyOrdered<O: Operator>: PartialOrd {}
-pub trait Ordered<O: Operator>: Ord {}
+// TODO: implement those and add more
+// pub trait PartiallyEqual<O: Operator>: Set<O> {
+//     fn eq(&self, other: &Self) -> bool;
+// }
+// pub trait PartiallyOrdered<O: Operator>: PartiallyEqual<O> {
+//     fn partial_comparison(&self, other: &Self) -> Option<Ordering>;
+//     fn is_less(&self, other: &Self) -> bool;
+//     fn is_less_or_equal(&self, other: &Self) -> bool;
+//     fn is_greater(&self, other: &Self) -> bool;
+//     fn is_greater_or_equal(&self, other: &Self) -> bool;
+// }
+// pub trait Ordered<O: Operator>: PartiallyOrdered<O> {
+//
+// }
 
 impl_set! {
     Additive        | add => u8, u16, u32, u64, u128, usize, i8, i16, i32, i64, i128, isize, f32, f64;

@@ -1,9 +1,7 @@
 use crate::algebra::ring::EuclideanSemidomain;
-use crate::operators::{Additive, Multiplicative};
-use crate::properties::general::PartiallyOrdered;
 
 pub trait EuclideanDiv: Sized {
-    type Norm: EuclideanSemidomain + PartiallyOrdered<Additive> + PartiallyOrdered<Multiplicative>;
+    type Norm: EuclideanSemidomain + PartialOrd;
 
     fn euclid_norm(&self) -> Self::Norm;
 

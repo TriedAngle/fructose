@@ -1,7 +1,7 @@
 use crate::operators::{Additive, Multiplicative};
-use crate::properties::general::{Identity, PartiallyOrdered};
+use crate::properties::general::Identity;
 
-pub trait One: Identity<Multiplicative> + Sized + PartiallyOrdered<Multiplicative> {
+pub trait One: Identity<Multiplicative> + Sized + PartialEq {
     fn one() -> Self {
         <Self as Identity<Multiplicative>>::identity()
     }
@@ -15,7 +15,7 @@ pub trait One: Identity<Multiplicative> + Sized + PartiallyOrdered<Multiplicativ
     }
 }
 
-pub trait Zero: Identity<Additive> + Sized + PartiallyOrdered<Additive> {
+pub trait Zero: Identity<Additive> + Sized + PartialEq {
     fn zero() -> Self {
         <Self as Identity<Additive>>::identity()
     }

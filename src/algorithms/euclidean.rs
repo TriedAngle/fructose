@@ -3,7 +3,10 @@ use crate::operators::{ClosedMul, ClosedNeg, ClosedOps, ClosedSub};
 use crate::properties::euclidean::EuclideanDiv;
 use crate::properties::helpers::identity::{One, Zero};
 
-pub fn euclidean<T: CommutativeSemiring + EuclideanDiv + Copy + Zero>(lhs: T, rhs: T) -> T {
+pub fn euclidean<T: CommutativeSemiring + EuclideanDiv + Copy + Zero + PartialOrd>(
+    lhs: T,
+    rhs: T,
+) -> T {
     fn helper<U>(a: U, b: U) -> U
     where
         U: CommutativeSemiring + EuclideanDiv + Copy + Zero,
@@ -60,7 +63,7 @@ pub fn extended_euclidean<
 
 // TODO: use the above algorithm, this is just a copy paste from Glucose
 pub fn extended_euclidean_steps<
-    T: CommutativeSemiring + EuclideanDiv + Zero + One + Copy + ClosedOps + ClosedNeg,
+    T: CommutativeSemiring + EuclideanDiv + Zero + One + Copy + ClosedOps + ClosedNeg + PartialOrd,
 >(
     mut a: T,
     mut b: T,
