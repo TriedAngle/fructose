@@ -36,6 +36,27 @@ pub trait ClosedBitShl<Rhs = Self>: Shl<Rhs, Output = Self> + ShlAssign<Rhs> {}
 pub trait ClosedBitShr<Rhs = Self>: Shr<Rhs, Output = Self> + ShrAssign<Rhs> {}
 pub trait ClosedBitNot: Not<Output = Self> {}
 
+pub trait BitOnes {
+    fn count_ones(self) -> u32;
+    fn leading_ones(self) -> u32;
+    fn trailing_ones(self) -> u32;
+}
+
+pub trait BitZeroes {
+    fn count_zeros(self) -> u32;
+    fn leading_zeros(self) -> u32;
+    fn trailing_zeros(self) -> u32;
+}
+
+pub trait BitRotate {
+    fn rotate_left(self, n: u32) -> Self;
+    fn rotate_right(self, n: u32) -> Self;
+}
+
+pub trait BitSwap {
+    fn swap_bytes(self) -> Self;
+}
+
 pub trait ClosedBitOps<Rhs = Self>:
     ClosedBitNot
     + ClosedBitAnd<Rhs>
@@ -43,6 +64,10 @@ pub trait ClosedBitOps<Rhs = Self>:
     + ClosedBitXor<Rhs>
     + ClosedBitShl<Rhs>
     + ClosedBitShr<Rhs>
+    + BitZeroes
+    + BitOnes
+    + BitRotate
+    + BitSwap
 {
 }
 
@@ -53,6 +78,55 @@ impl<T, Rhs> ClosedBitShl<Rhs> for T where T: Shl<Rhs, Output = Self> + ShlAssig
 impl<T, Rhs> ClosedBitShr<Rhs> for T where T: Shr<Rhs, Output = Self> + ShrAssign<Rhs> {}
 impl<T> ClosedBitNot for T where T: Not<Output = Self> {}
 
+macro_rules! impl_extended_bit_ops {
+    ($($signed:ty:$unsigned:ty)*) => {
+        $(
+            impl_extended_bit_ops!(@set $signed);
+            impl_extended_bit_ops!(@set $unsigned);
+        )*
+    };
+    (@set $set:ty) => {
+        impl BitOnes for $set {
+            forward! {
+                fn count_ones(self) -> u32;
+                fn leading_ones(self) -> u32;
+                fn trailing_ones(self) -> u32;
+            }
+        }
+
+        impl BitZeroes for $set {
+            forward! {
+                fn count_zeros(self) -> u32;
+                fn leading_zeros(self) -> u32;
+                fn trailing_zeros(self) -> u32;
+            }
+        }
+
+        impl BitRotate for $set {
+            forward! {
+                fn rotate_left(self, n: u32) -> Self;
+                fn rotate_right(self, n: u32) -> Self;
+            }
+
+        }
+
+        impl BitSwap for $set {
+            forward! {
+                fn swap_bytes(self) -> Self;
+            }
+        }
+    }
+}
+
+impl_extended_bit_ops! {
+    isize:usize
+    i8:u8
+    i16:u16
+    i32:u32
+    i64:u64
+    i128:u128
+}
+
 impl<T, Rhs> ClosedBitOps<Rhs> for T where
     T: ClosedBitNot
         + ClosedBitAnd<Rhs>
@@ -60,5 +134,9 @@ impl<T, Rhs> ClosedBitOps<Rhs> for T where
         + ClosedBitXor<Rhs>
         + ClosedBitShl<Rhs>
         + ClosedBitShr<Rhs>
+        + BitZeroes
+        + BitOnes
+        + BitRotate
+        + BitSwap
 {
 }

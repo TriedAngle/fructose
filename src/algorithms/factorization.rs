@@ -1,3 +1,5 @@
+use crate::properties::gcd::GCD;
+
 // TODO: generify this
 #[inline]
 pub fn wheel_factorization(mut num: u64) -> Vec<u64> {
@@ -42,7 +44,7 @@ pub fn is_prime(num: u64) -> bool {
 pub fn coprimes(modulo: i64) -> Vec<i64> {
     let mut coprimes = Vec::new();
     for i in 1..modulo {
-        if gcd(i, modulo) == 1 {
+        if i.gcd(modulo) == 1 {
             coprimes.push(i);
         }
     }
