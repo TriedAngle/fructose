@@ -1,3 +1,4 @@
+// TODO: generify this
 #[inline]
 pub fn wheel_factorization(mut num: u64) -> Vec<u64> {
     let mut primes = Vec::new();
@@ -17,6 +18,7 @@ pub fn wheel_factorization(mut num: u64) -> Vec<u64> {
     primes
 }
 
+// TODO: generify this
 #[inline]
 pub fn is_prime(num: u64) -> bool {
     if num <= 3 && num > 1 {
@@ -33,4 +35,16 @@ pub fn is_prime(num: u64) -> bool {
         }
         true
     }
+}
+
+// TODO: generify this
+#[inline]
+pub fn coprimes(modulo: i64) -> Vec<i64> {
+    let mut coprimes = Vec::new();
+    for i in 1..modulo {
+        if gcd(i, modulo) == 1 {
+            coprimes.push(i);
+        }
+    }
+    coprimes
 }
