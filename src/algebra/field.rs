@@ -1,10 +1,10 @@
-use crate::algebra::helpers::exp::Exponentiation;
-use crate::algebra::helpers::identity::{One, Zero};
-use crate::algebra::helpers::trig::TrigOps;
 use crate::algebra::lattice::Lattice;
-use crate::algebra::properties::archimedean::ArchimedeanDiv;
 use crate::algebra::ring::{DivisionRing, EuclideanDomain};
+use crate::operators::exp::Exponentiation;
+use crate::operators::trig::TrigOps;
 use crate::operators::{Additive, ClosedOps, Multiplicative, Operator};
+use crate::properties::archimedean::ArchimedeanDiv;
+use crate::properties::helpers::identity::{One, Zero};
 
 // (alias) All Fields are Division Rings
 pub trait Field<A: Operator = Additive, M: Operator = Multiplicative>: DivisionRing<A, M> {}

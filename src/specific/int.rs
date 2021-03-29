@@ -1,13 +1,13 @@
-use crate::algebra::helpers::bound::Bounded;
-use crate::algebra::helpers::identity::{One, Zero};
-use crate::algebra::properties::archimedean::ArchimedeanDiv;
-use crate::algebra::properties::general::Ordered;
-use crate::algebra::properties::primality::Primality;
 use crate::algebra::ring::{EuclideanSemidomain, IntegerRing, NaturalCommutativeSemiring};
 use crate::cast::{FromI32, FromU32};
 use crate::operators::bit::ClosedBitOps;
 use crate::operators::mul_add::{MulAdd, MulAddAssign};
 use crate::operators::{Additive, ClosedOps, Multiplicative};
+use crate::properties::archimedean::ArchimedeanDiv;
+use crate::properties::general::Ordered;
+use crate::properties::helpers::bound::Bounded;
+use crate::properties::helpers::identity::{One, Zero};
+use crate::properties::primality::Primality;
 
 // NOTE: right now everything can be used as a natural number, so this needs to be fixed asap.
 pub trait Natural:

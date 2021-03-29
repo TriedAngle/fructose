@@ -1,4 +1,4 @@
-use crate::algebra::properties::gcd::GCD;
+use crate::properties::gcd::GCD;
 
 pub trait Bezout: GCD {
     #[inline]

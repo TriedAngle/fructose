@@ -1,23 +1,23 @@
-use crate::algebra::properties::general::PartiallyOrdered;
 use crate::algebra::ring::EuclideanSemidomain;
 use crate::operators::{Additive, Multiplicative};
+use crate::properties::general::PartiallyOrdered;
 
 pub trait EuclideanDiv: Sized {
     type Norm: EuclideanSemidomain + PartiallyOrdered<Additive> + PartiallyOrdered<Multiplicative>;
 
     fn euclid_norm(&self) -> Self::Norm;
 
-    fn div_euclid_quotient(&self, rhs: Self) -> Self {
-        let (quot, _) = self.div_euclid(rhs);
+    fn euclid_div_quotient(&self, rhs: Self) -> Self {
+        let (quot, _) = self.euclid_div(rhs);
         quot
     }
 
-    fn div_euclid_remainder(&self, rhs: Self) -> Self {
-        let (_, rem) = self.div_euclid(rhs);
+    fn euclid_div_remainder(&self, rhs: Self) -> Self {
+        let (_, rem) = self.euclid_div(rhs);
         rem
     }
 
-    fn div_euclid(&self, rhs: Self) -> (Self, Self);
+    fn euclid_div(&self, rhs: Self) -> (Self, Self);
 }
 
 macro_rules! impl_euclidean_int {
@@ -45,7 +45,7 @@ macro_rules! impl_euclidean_int {
             }
 
             #[inline]
-            fn div_euclid(&self, rhs: Self) -> (Self, Self) {
+            fn euclid_div(&self, rhs: Self) -> (Self, Self) {
                 (self / rhs, self % rhs)
             }
         }
@@ -64,7 +64,7 @@ macro_rules! impl_euclidean_float {
                 }
 
                 #[inline]
-                fn div_euclid(&self, rhs: Self) -> (Self, Self) {
+                fn euclid_div(&self, rhs: Self) -> (Self, Self) {
                     (self / rhs, self % rhs)
                 }
             }

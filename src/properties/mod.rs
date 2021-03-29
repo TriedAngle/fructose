@@ -4,4 +4,6 @@ pub mod euclidean;
 pub mod factorization;
 pub mod gcd;
 pub mod general;
+pub mod helpers;
+pub mod orders;
 pub mod primality;

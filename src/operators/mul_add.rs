@@ -1,5 +1,5 @@
-use crate::algebra::properties::general::Set;
 use crate::operators::{Additive, Multiplicative};
+use crate::properties::general::Set;
 
 pub trait MulAdd<A = Self, B = Self>: Set<Additive> + Set<Multiplicative> {
     type Output;

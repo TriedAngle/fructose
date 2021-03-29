@@ -1,14 +1,14 @@
 use crate::algebra::group::{AbelianGroup, CommutativeMonoid, Monoid, Semigroup};
-use crate::algebra::properties::archimedean::ArchimedeanDiv;
-use crate::algebra::properties::bezout::Bezout;
-use crate::algebra::properties::euclidean::EuclideanDiv;
-use crate::algebra::properties::factorization::Factorizable;
-use crate::algebra::properties::gcd::GCD;
-use crate::algebra::properties::general::{NonZero, Ordered};
-use crate::algebra::properties::primality::Primality;
 use crate::operators::{
     Additive, ClosedAdd, ClosedMul, ClosedNeg, ClosedRem, ClosedSub, Multiplicative, Operator,
 };
+use crate::properties::archimedean::ArchimedeanDiv;
+use crate::properties::bezout::Bezout;
+use crate::properties::euclidean::EuclideanDiv;
+use crate::properties::factorization::Factorizable;
+use crate::properties::gcd::GCD;
+use crate::properties::general::{NonZero, Ordered};
+use crate::properties::primality::Primality;
 
 // Rings
 

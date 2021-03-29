@@ -23,8 +23,8 @@
 //!
 //! ```
 
-use crate::algebra::properties::general::{Associative, Commutative, Identity, Invertible, Total};
 use crate::operators::Operator;
+use crate::properties::general::{Associative, Commutative, Identity, Invertible, Total};
 
 pub trait Magma<O: Operator>: Total<O> {}
 

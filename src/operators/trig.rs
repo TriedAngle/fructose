@@ -1,4 +1,4 @@
-use crate::algebra::helpers::exp::Exponentiation;
+use crate::operators::exp::Exponentiation;
 
 pub trait TrigOps: Exponentiation + Sized {
     const PI: Self;

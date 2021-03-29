@@ -1,4 +1,4 @@
-use crate::algebra::helpers::pow::PosPow;
+use crate::operators::pow::PosPow;
 
 pub trait Exponentiation: PosPow + Sized {
     const SQRT_2: Self;

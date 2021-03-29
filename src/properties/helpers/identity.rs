@@ -1,5 +1,5 @@
-use crate::algebra::properties::general::{Identity, PartiallyOrdered};
 use crate::operators::{Additive, Multiplicative};
+use crate::properties::general::{Identity, PartiallyOrdered};
 
 pub trait One: Identity<Multiplicative> + Sized + PartiallyOrdered<Multiplicative> {
     fn one() -> Self {

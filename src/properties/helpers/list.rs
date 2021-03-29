@@ -1,4 +1,4 @@
-use crate::algebra::helpers::bound::Bounded;
+use crate::properties::helpers::bound::Bounded;
 use std::ops::Range;
 
 pub trait ListSet<Rhs = Self>: Sized {

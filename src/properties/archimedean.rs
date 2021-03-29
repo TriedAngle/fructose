@@ -1,5 +1,5 @@
-use crate::algebra::properties::general::{Associative, PartiallyOrdered};
 use crate::operators::Additive;
+use crate::properties::general::{Associative, PartiallyOrdered};
 
 pub trait ArchimedeanProperty: PartiallyOrdered<Additive> + Associative<Additive> {}
 
