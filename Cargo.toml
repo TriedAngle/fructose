@@ -1,6 +1,6 @@
 [package]
 name = "fructose"
-version = "0.3.8"
+version = "0.3.9"
 authors = ["Sebastian <Sebastian@Strobl.net>"]
 edition = "2018"
 publish = true
