@@ -1,6 +1,4 @@
-use crate::operators::pow::PosPow;
-
-pub trait Exponentiation: PosPow + Sized {
+pub trait Exponentiation: Sized {
     const SQRT_2: Self;
     const FRAC_1_SQRT_2: Self;
     const E: Self;
